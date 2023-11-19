@@ -1,16 +1,20 @@
 #include "exWindow.h"
 
 
+
 LRESULT CALLBACK WindowPRoc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
     switch (uMsg)
     {
     case WM_PAINT:
+        loop();
         break; 
     case WM_CREATE:
         break;
     case WM_DESTROY:
+        DestroyWindow(hwnd);
         break;
     case WM_CLOSE:
+        PostQuitMessage(0);
         break;
     default:
         return DefWindowProc(hwnd, uMsg, wParam,  lParam);
@@ -56,7 +60,14 @@ void CreatexExternalWindow()
 
     }
   
-}   
+}
+
+void loop()
+{
+   DWORD64 localplayer =  mem.readmemory<DWORD64>(offsets.clientbase+offsets.deLocalPlayer );
+   DWORD64 localteam = mem.readmemory<DWORD64>(offsets.clientbase + offsets.m_iTeamNum);
+}
+
 
 
 /*

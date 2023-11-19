@@ -4,3 +4,4 @@
 #include"Draw.h"
 #include"Memory.h"
 void CreatexExternalWindow();
+void loop();
