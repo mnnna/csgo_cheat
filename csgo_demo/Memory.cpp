@@ -18,11 +18,11 @@ DWORD Memory::getprocessid()
 void Memory::Setup()
 {
 	offsets.processid = getprocessid();
-	OpenProcess(PROCESS_ALL_ACCESS, FALSE, offsets.processid);
+ 	offsets.hprocess =  OpenProcess(PROCESS_ALL_ACCESS, FALSE, offsets.processid);
 	offsets.hwnd = FindWindowA(NULL, "Counter-Strike 2");
 
-	if (offsets.processid) {
-		cout << "csgo2 hporcess:" << offsets.processid << endl;
+	if (offsets.hprocess) {
+		cout << "csgo2 hporcess:" << offsets.hprocess << endl;
 	}
 	else {
 		cout << " get process error" << endl;
