@@ -2,6 +2,24 @@
 Memory mem;
 
 
+MODULEENTRY32 Memory::getmodule(DWORD pid, const wchar_t* windowname)
+{
+	HANDLE hss =  CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, pid );
+	mEntry.dwSize = sizeof(MODULEENTRY32);
+	if (hss != INVALID_HANDLE_VALUE) {
+		if (Module32First(hss, &mEntry)) {
+			do {
+				if (! wcscmp((const wchar_t*)mEntry.szModule, windowname)) {
+					break;
+				}
+			} while (Module32Next(hss, &mEntry));
+		};
+		CloseHandle(hss);
+	}
+	return mEntry;
+}
+
+
 DWORD Memory::getprocessid()
 {
 	DWORD PID;
@@ -27,4 +45,16 @@ void Memory::Setup()
 	else {
 		cout << " get process error" << endl;
 	}
+	getmodules();
+	cout << "csgo2 hporcess:" << offsets.clientbase << endl;
+}
+
+
+void Memory::getmodules()
+{
+	do {
+		offsets.clientbase = (DWORD)getmodule(offsets.processid, L"client.dll").modBaseAddr;
+		Sleep(50);
+	} while (!offsets.clientbase);
+	
 }
