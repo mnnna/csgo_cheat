@@ -1,5 +1,6 @@
 #pragma once
 #include<Windows.h>
+#include<iostream>
 #include"Offsets.h"; 
 using namespace std;
 class Memory
@@ -7,6 +8,7 @@ class Memory
 public: 
 	HWND hWnd;
 	void Setup();
+	DWORD getprocessid(); 
 	template <typename T> 
 	T readmemory(DWORD64 add){
 		T buffer;
