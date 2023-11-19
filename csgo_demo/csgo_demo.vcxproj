@@ -138,6 +138,7 @@
     <ClInclude Include="exWindow.h" />
     <ClInclude Include="Memory.h" />
     <ClInclude Include="Offsets.h" />
+    <ClInclude Include="structurers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

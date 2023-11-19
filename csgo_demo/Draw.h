@@ -1,6 +1,6 @@
 #pragma once
 #include<Windows.h>
-#include"structure.h"
+#include"structurers.h"
 #include"Offsets.h"
 using namespace std; 
 class Draw
@@ -8,7 +8,7 @@ class Draw
 public:
 	RECT rectGame; 
 	HWND hExwnd;
-	BOOL WorldToScreen(vec3& worldpos, vec2& screenpos);		
+	BOOL WorldToScreen(vec3& worldpos, vec2& screenpos);			
 	RECT rect;
 	RECT rectex;
 	int width;

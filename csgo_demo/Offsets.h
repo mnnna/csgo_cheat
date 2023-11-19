@@ -6,7 +6,7 @@ class Offsets
 {
 public :
 	HWND hwnd = 0; 
-
+	HANDLE hprocess = 0;
 };
 extern Offsets offsets;
 
