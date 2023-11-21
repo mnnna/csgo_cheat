@@ -12,8 +12,10 @@ void Draw::GetWindowInfo()
 	heightex = rectex.bottom - rectex.top;
 }
 BOOL Draw::WorldToScreen(vec3& worldpos, vec2& screenpos)
-{
+{	
+	GetWindowInfo;
 	float matrix[4][4];
+	mem.readmemory<DWORD64>(offsets.clientbase + offsets.deViewMatrix);
 	vec4 clipos;
 	clipos.x = matrix[0][0] * worldpos.x + matrix[0][1] * worldpos.y + matrix[0][2] * worldpos.z + matrix[0][3] * 1; 
 	clipos.y = matrix[1][0] * worldpos.x + matrix[1][1] * worldpos.y + matrix[1][2] * worldpos.z + matrix[1][3] * 1;
