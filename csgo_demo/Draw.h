@@ -2,6 +2,7 @@
 #include<Windows.h>
 #include"structurers.h"
 #include"Offsets.h"
+#include"Memory.h"
 using namespace std; 
 class Draw
 {

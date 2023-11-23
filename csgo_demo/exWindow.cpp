@@ -79,7 +79,13 @@ void loop()
            if (teamid != 2 && teamid != 3) continue;
            if (teamid != localteam) {
                DWORD entityHealth = mem.readmemory<DWORD>(entity + offsets.mHealth);
-               if (0 < entityHealth && entityHealth  < 100 && draw.WorldToScreen(entitypos3,entitypos2))
+               if (0 < entityHealth && entityHealth < 100 && draw.WorldToScreen(entitypos3, entitypos2)) {
+                   vec3 tmpbone3;
+                   vec2 tmpbone2;
+                   for (int i = 0; i <= 50; i++) {
+                        mem.readbone(entity, i, tmpbone3)
+                   }
+               }
            }
        }
    }
@@ -87,20 +93,3 @@ void loop()
 
 
 
-/*
-typedef struct tagWNDCLASSEX {
-    UINT      cbSize;
-    UINT      style;
-    WNDPROC   lpfnWndProc;
-    int       cbClsExtra;
-    int       cbWndExtra;
-    HINSTANCE hInstance;
-    HICON     hIcon;
-    HCURSOR   hCursor;
-    HBRUSH    hbrBackground;
-    LPCTSTR   lpszMenuName;
-    LPCTSTR   lpszClassName;
-    HICON     hIconSm;
-} WNDCLASSEX;
-
-*/

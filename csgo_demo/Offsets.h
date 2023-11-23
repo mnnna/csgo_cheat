@@ -5,16 +5,16 @@ using namespace std;
 class Offsets
 {
 public :
-	DWORD64 dwEntityList = NULL;
-	DWORD64 deLocalPlayer = 123; 
-	DWORD64 deViewMatrix = NULL; 
+	DWORD64 dwEntityList = 0x16C92A0;
+	DWORD64 deLocalPlayer = 0x16BC5B8;
+	DWORD64 deViewMatrix = 0x1818E28; 
 
-	DWORD m_iTeamNum = NULL;
-	DWORD mHealth = NULL;
-	DWORD m_fPOS = NULL; 
+	DWORD m_iTeamNum = 0xD48;
+	DWORD mHealth = 0xA6C;
+	DWORD m_fPOS = 0xCD;
 
 
-	HWND hwnd = 0; 
+	HWND hwnd = 0;
 	HANDLE hprocess = 0;
 	DWORD processid = 0;
 	DWORD64 clientbase;
