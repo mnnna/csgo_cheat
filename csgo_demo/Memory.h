@@ -33,11 +33,11 @@ public:
 		tmp3 = 0x00;
 		tmp4 = 0x20;
 		tmp5 = 0xC8;
-		tmp = readmemory<DWORD>(dwentity + tmp1);
-		tmp = readmemory<DWORD>(tmp + tmp2);
-		tmp = readmemory<DWORD>(tmp + tmp3);
-		tmp = readmemory<DWORD>(tmp + tmp4);
-		dwbonemartix = readmemory<DWORD>(tmp + tmp5);
+		tmp = readmemory<DWORD64>(dwentity + tmp1);
+		tmp = readmemory<DWORD64>(tmp + tmp2);
+		tmp = readmemory<DWORD64>(tmp + tmp3);
+		tmp = readmemory<DWORD64>(tmp + tmp4);
+		dwbonemartix = readmemory<DWORD64>(tmp + tmp5);
 		
 
 		bonepos3.x = readmemory<float>(dwbonemartix + bindex * 0x30 + 0xc);

@@ -9,13 +9,16 @@ class Draw
 public:
 	RECT rectGame; 
 	HWND hExwnd;
-	BOOL WorldToScreen(vec3& worldpos, vec2& screenpos);			
+	BOOL WorldToScreen(vec3 &worldpos, vec2 &screenpos);			
+
 	RECT rect;
 	RECT rectex;
+
 	int width;
 	int height;
 	int widthex;
 	int heightex;
+
 	void GetWindowInfo();
 };
 extern Draw draw; 

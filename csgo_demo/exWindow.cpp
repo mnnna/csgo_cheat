@@ -43,7 +43,7 @@ void CreatexExternalWindow()
         NULL, NULL, wc.hInstance, NULL);
 
     if (draw.hExwnd == NULL) return; 
-    SetLayeredWindowAttributes(draw.hExwnd, RGB(0,0,0), 0,LWA_ALPHA);
+    SetLayeredWindowAttributes(draw.hExwnd, RGB(0,0,0), 0, LWA_COLORKEY);
     ShowWindow(draw.hExwnd, SW_SHOW);
     UpdateWindow(draw.hExwnd);
 
@@ -65,30 +65,42 @@ void CreatexExternalWindow()
 void loop()
 {
    DWORD64 localplayer =  mem.readmemory<DWORD64>(offsets.clientbase+offsets.deLocalPlayer );
-   DWORD64 localteam = mem.readmemory<DWORD64>(localplayer + offsets.m_iTeamNum);
+
+   DWORD localteam = mem.readmemory<DWORD64>(localplayer + offsets.m_iTeamNum);
+
+   HDC hdc = GetDC(draw.hExwnd);
    if (localplayer) {
-       for (int i = 0; i < 32; ++i) {
-           DWORD64 entity = mem.readmemory<DWORD64>(offsets.clientbase + offsets.dwEntityList + 0x8 * i); 
-           if ((entity == 0)||(entity == localplayer)) continue;
+       for (int i = 0; i < 32; i++) {
+           DWORD64 entity = mem.readmemory<DWORD64>(offsets.clientbase + offsets.dwEntityList + i * 0x8);
+          
+           if (localplayer == entity) { continue; }
+           if (entity == 0) { continue; }
            vec3 entitypos3; vec2 entitypos2;
 
            entitypos3.x = mem.readmemory<float>(entity + offsets.m_fPOS + 0x0);
            entitypos3.y = mem.readmemory<float>(entity + offsets.m_fPOS + 0x4);
            entitypos3.z = mem.readmemory<float>(entity + offsets.m_fPOS + 0x8);
            DWORD teamid = mem.readmemory<BYTE>(entity + offsets.m_iTeamNum);
-           if (teamid != 2 && teamid != 3) continue;
+           if (teamid != 2 && teamid != 3) { continue; };
            if (teamid != localteam) {
+
                DWORD entityHealth = mem.readmemory<DWORD>(entity + offsets.mHealth);
-               if (0 < entityHealth && entityHealth < 100 && draw.WorldToScreen(entitypos3, entitypos2)) {
+               if (0 <  entityHealth && entityHealth <= 100 && draw.WorldToScreen(entitypos3, entitypos2)) {
                    vec3 tmpbone3;
                    vec2 tmpbone2;
                    for (int i = 0; i <= 50; i++) {
-                        mem.readbone(entity, i, tmpbone3)
+                       mem.readbone(entity, i, tmpbone3);
+                       wchar_t buffer[255];
+                       wsprintf(buffer, L"%d", i);
+                       if (draw.WorldToScreen(tmpbone3, tmpbone2)) {
+                           TextOut(hdc, tmpbone2.x, tmpbone2.y, buffer, 2);
+                       }
                    }
                }
            }
        }
    }
+   ReleaseDC(draw.hExwnd, hdc);
 }
 
 

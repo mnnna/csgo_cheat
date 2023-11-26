@@ -7,11 +7,11 @@ class Offsets
 public :
 	DWORD64 dwEntityList = 0x16C92A0;
 	DWORD64 deLocalPlayer = 0x16BC5B8;
-	DWORD64 deViewMatrix = 0x1818E28; 
+	DWORD64 deViewMatrix = 0x1813840;
 
 	DWORD m_iTeamNum = 0xD48;
 	DWORD mHealth = 0xA6C;
-	DWORD m_fPOS = 0xCD;
+	DWORD m_fPOS = 0xCD8;
 
 
 	HWND hwnd = 0;

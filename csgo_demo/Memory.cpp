@@ -1,10 +1,9 @@
 #include "Memory.h"
 Memory mem;
 
-
 MODULEENTRY32 Memory::getmodule(DWORD pid, const wchar_t* windowname)
 {
-	HANDLE hss =  CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, pid );
+	hss =  CreateToolhelp32Snapshot(TH32CS_SNAPMODULE | TH32CS_SNAPMODULE32, pid );
 	mEntry.dwSize = sizeof(MODULEENTRY32);
 	if (hss != INVALID_HANDLE_VALUE) {
 		if (Module32First(hss, &mEntry)) {
@@ -24,7 +23,7 @@ DWORD Memory::getprocessid()
 {
 	DWORD PID;
 	do {
-		offsets.hwnd = FindWindowA(NULL, "Counter-Strike 2");
+		offsets.hwnd = FindWindow(NULL, L"Counter-Strike 2");
 		Sleep(50);
 	} while (!offsets.hwnd);
 
@@ -45,6 +44,7 @@ void Memory::Setup()
 	else {
 		cout << " get process error" << endl;
 	}
+	cout << "" << endl;
 	getmodules();
 	cout << "csgo2 hporcess:" << offsets.clientbase << endl;
 }
@@ -53,7 +53,7 @@ void Memory::Setup()
 void Memory::getmodules()
 {
 	do {
-		offsets.clientbase = (DWORD)getmodule(offsets.processid, L"client.dll").modBaseAddr;
+		offsets.clientbase = (DWORD64)getmodule(offsets.processid, L"client.dll").modBaseAddr;
 		Sleep(50);
 	} while (!offsets.clientbase);
 	
