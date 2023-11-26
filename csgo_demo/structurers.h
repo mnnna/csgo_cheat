@@ -19,3 +19,5 @@ struct vec4 {
 	float z;
 	float w;
 };
+
+#define BONE_HEAD 6
