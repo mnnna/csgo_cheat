@@ -67,15 +67,19 @@ void loop()
    DWORD64 localplayer =  mem.readmemory<DWORD64>(offsets.clientbase+offsets.deLocalPlayer );
 
    DWORD localteam = mem.readmemory<DWORD64>(localplayer + offsets.m_iTeamNum);
-
    HDC hdc = GetDC(draw.hExwnd);
+   HBRUSH hbrush = (HBRUSH)GetStockObject(BLACK_BRUSH);
+   FillRect(hdc, &draw.rect, hbrush);
+   DeleteObject(hbrush);
+   
    if (localplayer) {
        for (int i = 0; i < 32; i++) {
            DWORD64 entity = mem.readmemory<DWORD64>(offsets.clientbase + offsets.dwEntityList + i * 0x8);
           
            if (localplayer == entity) { continue; }
            if (entity == 0) { continue; }
-           vec3 entitypos3; vec2 entitypos2;
+           vec3 entitypos3,entityheadpos3; 
+           vec2 entitypos2, entityheadpos2;
 
            entitypos3.x = mem.readmemory<float>(entity + offsets.m_fPOS + 0x0);
            entitypos3.y = mem.readmemory<float>(entity + offsets.m_fPOS + 0x4);
@@ -86,6 +90,20 @@ void loop()
 
                DWORD entityHealth = mem.readmemory<DWORD>(entity + offsets.mHealth);
                if (0 <  entityHealth && entityHealth <= 100 && draw.WorldToScreen(entitypos3, entitypos2)) {
+                   mem.readbone(entity, BONE_HEAD, entityheadpos3);
+                   if (draw.WorldToScreen(entityheadpos3, entityheadpos2)) {
+                       float height = entitypos2.y - entityheadpos2.y;
+                       float width = height / 2;
+                       RECT _rect;
+                       _rect.left = entitypos2.x - (width / 2);
+                       _rect.top = entityheadpos2.y;
+                       _rect.right = entitypos2.x + (width / 2);
+                       _rect.bottom = entitypos2.y;
+                       HBRUSH hbrush2 = CreateSolidBrush(RGB(128, 111, 101));
+                       FrameRect(hdc, &_rect, hbrush2);
+                 
+                   }
+#if 0               
                    vec3 tmpbone3;
                    vec2 tmpbone2;
                    for (int i = 0; i <= 50; i++) {
@@ -96,6 +114,7 @@ void loop()
                            TextOut(hdc, tmpbone2.x, tmpbone2.y, buffer, 2);
                        }
                    }
+#endif 
                }
            }
        }
