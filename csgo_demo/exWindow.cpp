@@ -68,9 +68,17 @@ void loop()
 
    DWORD localteam = mem.readmemory<DWORD64>(localplayer + offsets.m_iTeamNum);
    HDC hdc = GetDC(draw.hExwnd);
-   HBRUSH hbrush = (HBRUSH)GetStockObject(BLACK_BRUSH);
-   FillRect(hdc, &draw.rect, hbrush);
-   DeleteObject(hbrush);
+
+   HDC dcmemory = CreateCompatibleDC(hdc);
+   HBITMAP bmpmem = CreateCompatibleBitmap(hdc, draw.rectGame.right - draw.rectGame.left, draw.rectGame.bottom - draw.rectGame.top);
+   HPEN hp = CreatePen(PS_SOLID, 2, RGB(123, 241, 123));
+   SelectObject(dcmemory, bmpmem);
+   SelectObject(dcmemory, hp);
+   //HBRUSH hbrush = (HBRUSH)GetStockObject(BLACK_BRUSH);
+  HBRUSH hbrush = CreateSolidBrush(RGB(128, 0, 0));
+  // SetBkMode(hdc, TRANSPARENT);
+   //FillRect(hdc, &draw.rect, hbrush);
+  // DeleteObject(hbrush);
    
    if (localplayer) {
        for (int i = 0; i < 32; i++) {
@@ -99,9 +107,9 @@ void loop()
                        _rect.top = entityheadpos2.y;
                        _rect.right = entitypos2.x + (width / 2);
                        _rect.bottom = entitypos2.y;
-                       HBRUSH hbrush2 = CreateSolidBrush(RGB(128, 111, 101));
-                       FrameRect(hdc, &_rect, hbrush2);
-                 
+                       
+                      // FrameRect(dcmemory, &_rect, hbrush);
+                       draw.drawrect(dcmemory, _rect);
                    }
 #if 0               
                    vec3 tmpbone3;
@@ -118,8 +126,13 @@ void loop()
                }
            }
        }
+       BitBlt(hdc, 0, 0, draw.rectGame.right - draw.rectGame.left, draw.rectGame.bottom - draw.rectGame.top, dcmemory, 0, 0, SRCCOPY);
+
    }
+   DeleteObject(hbrush);
    ReleaseDC(draw.hExwnd, hdc);
+   DeleteDC(dcmemory);
+   DeleteObject(bmpmem);
 }
 
 

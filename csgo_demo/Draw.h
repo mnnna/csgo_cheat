@@ -18,7 +18,8 @@ public:
 	int height;
 	int widthex;
 	int heightex;
-
+	
+	void drawrect(HDC hdc, RECT rect);
 	void GetWindowInfo();
 };
 extern Draw draw; 

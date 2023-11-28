@@ -1,6 +1,27 @@
 #include "Draw.h"
 #include "Offsets.h"
 Draw draw;
+void Draw::drawrect(HDC hdc, RECT rect)
+{	
+	float witdth = rect.right - rect.left;
+	int length = witdth / 3;
+
+	MoveToEx(hdc, rect.left, rect.top + length, NULL);
+	LineTo(hdc, rect.left, rect.top);
+	LineTo(hdc, rect.left + length , rect.top);
+
+	MoveToEx(hdc, rect.right, rect.top + length, NULL);
+	LineTo(hdc, rect.right, rect.top);
+	LineTo(hdc, rect.right - length, rect.top);
+
+	MoveToEx(hdc, rect.left, rect.bottom - length, NULL);
+	LineTo(hdc, rect.left, rect.bottom);
+	LineTo(hdc, rect.left + length, rect.bottom);
+
+	MoveToEx(hdc, rect.right, rect.bottom - length, NULL);
+	LineTo(hdc, rect.right, rect.bottom);
+	LineTo(hdc, rect.right - length, rect.bottom);
+}
 void Draw::GetWindowInfo()
 {
 	GetClientRect(offsets.hwnd, &rect);
@@ -31,7 +52,7 @@ BOOL Draw::WorldToScreen(vec3& worldpos, vec2& screenpos)
 	ndc.z = clipos.z / clipos.w;
 
 	screenpos.x = width / 2 + (width / 2) * ndc.x;
-	screenpos.y = height / 2 - (height / 2) * ndc.y;
+	screenpos.y = height / 2 - (height / 2) * ndc.y + 30;
 
 	return true; 
 }
