@@ -110,6 +110,7 @@ void loop()
                        
                       // FrameRect(dcmemory, &_rect, hbrush);
                        draw.drawrect(dcmemory, _rect);
+                       draw.drawhp(dcmemory, hbrush, _rect, entityHealth);
                    }
 #if 0               
                    vec3 tmpbone3;
@@ -130,6 +131,7 @@ void loop()
 
    }
    DeleteObject(hbrush);
+   DeleteObject(hp);
    ReleaseDC(draw.hExwnd, hdc);
    DeleteDC(dcmemory);
    DeleteObject(bmpmem);

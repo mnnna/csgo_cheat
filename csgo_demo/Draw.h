@@ -20,6 +20,7 @@ public:
 	int heightex;
 	
 	void drawrect(HDC hdc, RECT rect);
+	void drawhp(HDC hdc, HBRUSH hb, RECT rect, float hp);
 	void GetWindowInfo();
 };
 extern Draw draw; 

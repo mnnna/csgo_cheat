@@ -22,6 +22,33 @@ void Draw::drawrect(HDC hdc, RECT rect)
 	LineTo(hdc, rect.right, rect.bottom);
 	LineTo(hdc, rect.right - length, rect.bottom);
 }
+void Draw::drawhp(HDC hdc, HBRUSH hb, RECT rect, float hp)
+{
+	int width = 5;
+	RECT backgroundrect = {
+		rect.left - width ,
+		rect.top ,
+		rect.left - width / 2 ,
+		rect.bottom
+	};
+
+	FillRect(hdc, &backgroundrect, hb);
+
+	HBRUSH hb2 = CreateSolidBrush(RGB(153,196,36));
+
+	float autotop = (rect.bottom - rect.top) * ((100 - hp) / 100)+rect.top;
+	 
+	RECT hprect = {
+		backgroundrect.left ,
+		autotop,
+		backgroundrect.right,
+		backgroundrect.bottom
+	};
+
+	FillRect(hdc, &hprect, hb2); 
+	DeleteObject(hb2);
+
+}
 void Draw::GetWindowInfo()
 {
 	GetClientRect(offsets.hwnd, &rect);
