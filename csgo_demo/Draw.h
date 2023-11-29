@@ -23,5 +23,6 @@ public:
 	void drawhp(HDC hdc, HBRUSH hb, RECT rect, float hp);
 	void GetWindowInfo();
 	void drawbone(HDC hdc, DWORD64 entity);
+	void drawstr(HDC hdc, int x, int y, COLORREF color, const char* text)
 };
 extern Draw draw; 

@@ -86,12 +86,16 @@ void loop()
           
            if (localplayer == entity) { continue; }
            if (entity == 0) { continue; }
-           vec3 entitypos3,entityheadpos3; 
+           vec3 entitypos3,entityheadpos3, localpos3; 
            vec2 entitypos2, entityheadpos2;
 
            entitypos3.x = mem.readmemory<float>(entity + offsets.m_fPOS + 0x0);
            entitypos3.y = mem.readmemory<float>(entity + offsets.m_fPOS + 0x4);
            entitypos3.z = mem.readmemory<float>(entity + offsets.m_fPOS + 0x8);
+
+           localpos3.x = mem.readmemory<float>(localplayer + offsets.m_fPOS + 0x0);
+           localpos3.y = mem.readmemory<float>(localplayer + offsets.m_fPOS + 0x4);
+           localpos3.z = mem.readmemory<float>(localplayer + offsets.m_fPOS + 0x8);
            DWORD teamid = mem.readmemory<BYTE>(entity + offsets.m_iTeamNum);
            if (config.team || (teamid != 2 && teamid != 3)) { continue; };
            if (teamid != localteam) {
@@ -116,6 +120,15 @@ void loop()
                        }
                        if (config.bone) {
                            draw.drawbone(dcmemory, entity);
+                       }
+                       if (config.distance) {
+                           unsigned int distance = sqrt((entitypos3.x - localpos3.x) * (entitypos3.x - localpos3.x) + (entitypos3.y - localpos3.y) * (entitypos3.y - localpos3.y) 
+                               + (entitypos3.z - localpos3.z));
+                           char tmpstr[255];
+                           char prefix[] = "[";
+                           char suffix[] = "m]";
+                           _itoa_s(distance, tmpstr, 10);
+                           string endstr = prefix + (string)tmpstr + suffix;
                        }
                    }
 #if 0               
