@@ -59,6 +59,75 @@ void Draw::GetWindowInfo()
 	widthex = rectex.right - rectex.left;
 	heightex = rectex.bottom - rectex.top;
 }
+void Draw::drawbone(HDC hdc, DWORD64 entity)
+{
+	vec3 tmpbone3;
+	vec2 tmpbone2, neckbone, crossbone;
+
+	mem.readbone(entity, BONE_HEAD, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	MoveToEx(hdc, tmpbone2.x , tmpbone2.y, NULL);
+
+	mem.readbone(entity, BONE_NECK, tmpbone3);
+	WorldToScreen(tmpbone3, neckbone);
+	LineTo(hdc, neckbone.x, neckbone.y);
+
+	mem.readbone(entity, BONE_LEFT_SHOULDER, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	mem.readbone(entity, BONE_LEFT_SHOULDER, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	mem.readbone(entity, BONE_LEFT_ELBOW, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	mem.readbone(entity, BONE_LEFT_HAND, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	MoveToEx(hdc, neckbone.x, neckbone.y, NULL);
+
+	mem.readbone(entity, BONE_RIGHT_SHOULDER, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	mem.readbone(entity, BONE_RIGHT_ELBOW, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	mem.readbone(entity, BONE_RIGHT_HAND, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	MoveToEx(hdc, neckbone.x, neckbone.y, NULL);
+
+	mem.readbone(entity, BONE_CROSS, tmpbone3);
+	WorldToScreen(tmpbone3, crossbone);
+	LineTo(hdc, crossbone.x, crossbone.y);
+
+	mem.readbone(entity, BONE_LEFT_KNEE, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	mem.readbone(entity, BONE_LEFT_FOOT, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	MoveToEx(hdc, neckbone.x, neckbone.y, NULL);
+
+	mem.readbone(entity, BONE_RIGHT_KNEE, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+	mem.readbone(entity, BONE_RIGHT_FOOT, tmpbone3);
+	WorldToScreen(tmpbone3, tmpbone2);
+	LineTo(hdc, tmpbone2.x, tmpbone2.y);
+
+
+}
 BOOL Draw::WorldToScreen(vec3& worldpos, vec2& screenpos)
 {	
 	GetWindowInfo();

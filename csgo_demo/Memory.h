@@ -26,7 +26,7 @@ public:
 		WriteProcessMemory(offsets.hprocess, (LPCVOID)add, &val, sizeof(val), NULL);
 	};
 
-	void readbone(DWORD64 dwentity, int bindex, vec3& bonepos3) {
+	void  readbone(DWORD64 dwentity, int bindex, vec3& bonepos3) {
 		DWORD64 tmp, tmp1, tmp2, tmp3, tmp4, tmp5, dwbonemartix;
 		tmp1 = 0x318;
 		tmp2 = 0x40;

@@ -102,6 +102,7 @@ void loop()
                    if (draw.WorldToScreen(entityheadpos3, entityheadpos2)) {
                        float height = entitypos2.y - entityheadpos2.y;
                        float width = height / 2;
+                       if ((height <= 0) || (width <= 0)) continue;
                        RECT _rect;
                        _rect.left = entitypos2.x - (width / 2);
                        _rect.top = entityheadpos2.y;
@@ -111,6 +112,7 @@ void loop()
                       // FrameRect(dcmemory, &_rect, hbrush);
                        draw.drawrect(dcmemory, _rect);
                        draw.drawhp(dcmemory, hbrush, _rect, entityHealth);
+                       draw.drawbone(dcmemory, entity);
                    }
 #if 0               
                    vec3 tmpbone3;

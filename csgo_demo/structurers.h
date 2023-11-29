@@ -21,3 +21,21 @@ struct vec4 {
 };
 
 #define BONE_HEAD 6
+#define BONE_NECK 12 //╡╠вс
+
+#define BONE_LEFT_SHOULDER 8 //вС╪Г
+#define BONE_RIGHT_SHOULDER 13 //ср╪Г
+
+#define BONE_LEFT_ELBOW 9 //вС╪Г
+#define BONE_RIGHT_ELBOW 14 //сржБ
+
+#define BONE_LEFT_HAND 38 //вСйж
+#define BONE_RIGHT_HAND 16 //срйж
+
+#define BONE_CROSS 0
+
+#define BONE_LEFT_KNEE 23 //вСо╔
+#define BONE_RIGHT_KNEE 26 //сро╔
+
+#define BONE_LEFT_FOOT 30 //вС╫е
+#define BONE_RIGHT_FOOT 32 //ср╫е
