@@ -93,7 +93,7 @@ void loop()
            entitypos3.y = mem.readmemory<float>(entity + offsets.m_fPOS + 0x4);
            entitypos3.z = mem.readmemory<float>(entity + offsets.m_fPOS + 0x8);
            DWORD teamid = mem.readmemory<BYTE>(entity + offsets.m_iTeamNum);
-           if (teamid != 2 && teamid != 3) { continue; };
+           if (config.team || (teamid != 2 && teamid != 3)) { continue; };
            if (teamid != localteam) {
 
                DWORD entityHealth = mem.readmemory<DWORD>(entity + offsets.mHealth);
@@ -111,8 +111,12 @@ void loop()
                        
                       // FrameRect(dcmemory, &_rect, hbrush);
                        draw.drawrect(dcmemory, _rect);
-                       draw.drawhp(dcmemory, hbrush, _rect, entityHealth);
-                       draw.drawbone(dcmemory, entity);
+                       if (config.health) {
+                           draw.drawhp(dcmemory, hbrush, _rect, entityHealth);
+                       }
+                       if (config.bone) {
+                           draw.drawbone(dcmemory, entity);
+                       }
                    }
 #if 0               
                    vec3 tmpbone3;

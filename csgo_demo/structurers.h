@@ -2,6 +2,18 @@
 #include<Windows.h>
 using namespace std;
 
+class Config {
+
+public:
+	bool health = 1;
+	bool bone = 0; 
+	bool distance = 0; 
+	bool team = 0;
+	bool triggerbot = 0;  
+	bool autoaim = 0;
+};
+extern Config config;
+
 struct vec3 {
 	float x;
 	float y;
