@@ -123,12 +123,13 @@ void loop()
                        }
                        if (config.distance) {
                            unsigned int distance = sqrt((entitypos3.x - localpos3.x) * (entitypos3.x - localpos3.x) + (entitypos3.y - localpos3.y) * (entitypos3.y - localpos3.y) 
-                               + (entitypos3.z - localpos3.z));
+                               + (entitypos3.z - localpos3.z))/100;
                            char tmpstr[255];
                            char prefix[] = "[";
                            char suffix[] = "m]";
                            _itoa_s(distance, tmpstr, 10);
                            string endstr = prefix + (string)tmpstr + suffix;
+                           draw.drawstr(dcmemory, entitypos2.x - 5, entitypos2.y + 2, distance < 5 ? RGB(255, 0, 0) : RGB(143, 143, 143), endstr.c_str());
                        }
                    }
 #if 0               

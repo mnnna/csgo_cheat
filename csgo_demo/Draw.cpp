@@ -128,6 +128,15 @@ void Draw::drawbone(HDC hdc, DWORD64 entity)
 
 
 }
+HFONT hfont = CreateFont(12, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY
+	, DEFAULT_PITCH | FF_SWISS, NULL); 
+void Draw::drawstr(HDC hdc, int x, int y, COLORREF color, const char* text)
+{
+	SetBkColor(hdc, TRANSPARENT);
+	SetTextColor(hdc, color);
+	SelectObject(hdc, hfont);
+	TextOutA(hdc, x, y, text, strlen(text));
+}
 BOOL Draw::WorldToScreen(vec3& worldpos, vec2& screenpos)
 {	
 	GetWindowInfo();
