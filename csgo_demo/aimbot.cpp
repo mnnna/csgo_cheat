@@ -48,7 +48,7 @@ void AimBot()
 		if (GetAsyncKeyState(VK_LBUTTON) < 0 && localplayer != 0) {
 			if (target != 0 && target_health > 0 && target_health <= 100 ) {
 				mem.writememory(offsets.clientbase + offsets.m_fViewAngle, targetAngle.y);
-				mem.writememory(offsets.clientbase + offsets.m_fViewAngle, targetAngle.x);
+				mem.writememory(offsets.clientbase + offsets.m_fViewAngle + 0x4, targetAngle.x);
 			}
 		}
 	}
