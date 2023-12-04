@@ -30,6 +30,9 @@
     <ClCompile Include="Draw.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="aimbot.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="exWindow.h">
@@ -45,6 +48,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="structurers.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="aimbot.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

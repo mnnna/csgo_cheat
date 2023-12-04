@@ -4,6 +4,8 @@
 #include"Memory.h"
 #include"exWindow.h"
 #include <thread>
+#include"aimbot.h"
+
 Config config;
 using namespace std;
 void init()
@@ -51,6 +53,13 @@ void toggleFeatures() {
     }
     
 }
+
+void features() {
+    while(true) 
+        if (config.autoaim) {
+            AimBot();
+    }
+}
 int main()
 {
     SetConsoleTitle ( L"csgo_meum" );
@@ -61,6 +70,7 @@ int main()
 
     cout << "\n ------------------------------------" << endl;
     init();
+    thread aimbotThread (features);
     thread StartExternalWindow(StartExternalWindows);
     printmeum();
     while (true) {

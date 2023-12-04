@@ -51,3 +51,5 @@ struct vec4 {
 
 #define BONE_LEFT_FOOT 30 //×ó½Å
 #define BONE_RIGHT_FOOT 32 //ÓÒ½Å
+
+#define CONFIG_FOV 20

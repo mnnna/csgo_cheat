@@ -22,8 +22,8 @@ public:
 		return buffer;
 	};
 	template <typename T>
-	T writememory(DWORD64 add, T val ) {
-		WriteProcessMemory(offsets.hprocess, (LPCVOID)add, &val, sizeof(val), NULL);
+	void writememory(DWORD64 add, T val ) {
+		WriteProcessMemory(offsets.hprocess, (LPVOID)add, &val, sizeof(val), NULL);
 	};
 
 	void  readbone(DWORD64 dwentity, int bindex, vec3& bonepos3) {

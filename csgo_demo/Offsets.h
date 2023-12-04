@@ -12,6 +12,7 @@ public :
 	DWORD m_iTeamNum = 0xD48;
 	DWORD mHealth = 0xA6C;
 	DWORD m_fPOS = 0xCD8;
+	DWORD m_fViewAngle = 0x187A8C0;
 
 
 	HWND hwnd = 0;
