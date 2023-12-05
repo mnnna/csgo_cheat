@@ -147,6 +147,18 @@ void loop()
                }
            }
        }
+       if (config.autoaim) {
+           int circleredius = (draw.rectGame.right - draw.rectGame.left) * CONFIG_FOV / 2 / 130;
+           int centerx = (draw.rectGame.right - draw.rectGame.left) / 2;
+           int centery = (draw.rectGame.bottom - draw.rectGame.top) / 2 + 15;
+           Arc(dcmemory,
+               centerx - circleredius, centery - circleredius,
+               centerx + circleredius, centery + circleredius,
+               centerx - centery, centery,
+               centerx - centery, centery
+           );
+       }
+
        BitBlt(hdc, 0, 0, draw.rectGame.right - draw.rectGame.left, draw.rectGame.bottom - draw.rectGame.top, dcmemory, 0, 0, SRCCOPY);
 
    }
