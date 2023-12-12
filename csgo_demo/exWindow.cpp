@@ -79,10 +79,19 @@ void loop()
   // SetBkMode(hdc, TRANSPARENT);
    //FillRect(hdc, &draw.rect, hbrush);
   // DeleteObject(hbrush);
-   
+  DWORD64  entityList = mem.readmemory<uintptr_t>(offsets.clientbase + offsets.dwEntityList); // client.dll+17BB820
    if (localplayer) {
        for (int i = 0; i < 32; i++) {
-           DWORD64 entity = mem.readmemory<DWORD64>(offsets.clientbase + offsets.dwEntityList + i * 0x8);
+           // DWORD64 entity = mem.readmemory<DWORD64>(offsets.clientbase + offsets.dwEntityList + i * 0x8);
+           DWORD64 listEntry = mem.readmemory<DWORD64>(entityList + (8 * (i & 0x7FFF) >> 9) + 16);
+           if (!listEntry) continue;
+           DWORD64 CBasePlayerController = mem.readmemory<DWORD64>(listEntry + 120 * (i & 0x1FF));
+           DWORD64 m_hPlayerPawn = mem.readmemory<DWORD64>(CBasePlayerController + offsets.m_hPlayerPawn);
+           //C_BaseEntity
+           DWORD64 listEntry2 = mem.readmemory<DWORD64>(entityList + 0x8 * ((m_hPlayerPawn & 0x7FFF) >> 9) + 16);
+           if (!listEntry2) continue;
+           //pCSPlayerPawn 
+           DWORD64 entity = mem.readmemory<DWORD64>(listEntry2 + 120 * (m_hPlayerPawn & 0x1FF));
           
            if (localplayer == entity) { continue; }
            if (entity == 0) { continue; }
