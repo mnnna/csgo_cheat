@@ -134,6 +134,8 @@
     <ClCompile Include="exWindow.cpp" />
     <ClCompile Include="Memory.cpp" />
     <ClCompile Include="Offsets.cpp" />
+    <ClCompile Include="patternscan.cpp" />
+    <ClCompile Include="patternscan.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="aimbot.h" />

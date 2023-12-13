@@ -17,15 +17,15 @@ DWORD64 findAddress(HANDLE hprocess, const wchar_t* moduleName, const char* patt
 		char buffer[0x1000];
 		DWORD oProtect; 
 		VirtualProtectEx(hprocess, (LPVOID)curChunk, sizeof(buffer), PAGE_EXECUTE_READWRITE, &oProtect);
-		ReadProcessMemory(hprocess, (LPVOID)curChunk, &buffer, sizeof(buffer), &byteRead);
+		ReadProcessMemory(hprocess, (LPVOID)curChunk, &buffer, sizeof(buffer), &bytesRead);
 		VirtualProtectEx(hprocess, (LPVOID)curChunk, sizeof(buffer), oProtect, &oProtect);
 
 		if (bytesRead == 0) {
 			return NULL;
 		}
-		DWORD64 internalAddr = findpattern((char*) (buffer), byteRead, pattern, mask);
+		DWORD64 internalAddr = findpattern(buffer, bytesRead, pattern, mask);
 		if (internalAddr != NULL) {
-			uintptr_t offsetFromBuffer = (uintptr_t)internalAddr - (uintptr_t)&buffer;
+			uintptr_t offsetFromBuffer = internalAddr - (uintptr_t)&buffer;
 			return (DWORD64)(curChunk + offsetFromBuffer);
 		}
 		else {
@@ -46,6 +46,7 @@ DWORD64 findpattern(char* base, size_t size, const char* pattern, const char* ma
 		for (DWORD64 j = 0; j < patternLen; j++) {
 			if (mask[j] != '?' && pattern[j] != *(base + i + j)) {
 				bool found = false;
+				break;
 			};
 		};
 		if (found) {
