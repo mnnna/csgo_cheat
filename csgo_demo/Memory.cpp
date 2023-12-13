@@ -32,6 +32,16 @@ DWORD Memory::getprocessid()
 	return PID;
 }
 
+DWORD Memory::ReadGlobalVarOffset(DWORD64 dwAddress)
+{
+	unsigned char szBuff[4] = { 0 };
+	ReadProcessMemory(offsets.hprocess, (LPCVOID)dwAddress, &szBuff, sizeof(szBuff), NULL);
+	//将buff按照小端序存储组合成DWORD值
+	DWORD dwResult;
+	dwResult = ((DWORD)szBuff[0]) | ((DWORD)szBuff[1] << 8) | ((DWORD)szBuff[2] << 16) | ((DWORD)szBuff[3] << 24);
+	return dwResult;
+}
+
 void Memory::Setup()
 {
 	offsets.processid = getprocessid();
@@ -58,3 +68,6 @@ void Memory::getmodules()
 	} while (!offsets.clientbase);
 	
 }
+
+
+
